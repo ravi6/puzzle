@@ -1,0 +1,34 @@
+/* Puzzle Digitization: 
+   Ravi Saripalli
+   6th April 2026
+*/
+export function sumit(v) {
+    return v.reduce((s, i) => s + i, 0);
+}
+
+export function clrWord(wlen, dir, r, c) {
+    for (let k = 0; k < wlen; k++) {
+	let rr = dir === "down" ? r + k : c;
+	let cc = dir === "cross" ? c : c + k;
+	let cell = getCell(rr, cc);
+	cell.style.backgroundColor = "white";
+	cell.children[1].textContent = "";
+    }
+} // clrWord
+
+export function getCell(r, c) {
+    // grid is stored row wise
+    const n = r * cols + c;
+    const cell = grid.children[n];
+    return cell;
+} // end getCell
+
+export function getPos(cell) {
+    // Given cell object find i, j pos of it in grid
+    const cells = grid.children;
+    const n = Array.from(cells).indexOf(cell);
+    const r = Math.floor(n / cols);
+    const c = n % cols;
+    return { r: r, c: c };
+} //end getPos
+

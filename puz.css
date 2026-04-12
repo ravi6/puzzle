@@ -1,0 +1,33 @@
+/* Puzzle Digitization: 
+   Ravi Saripalli
+   6th April 2026
+*/
+.agrid {
+    display: grid;
+    grid-template-rows: repeat(15, 50px);
+    grid-template-columns: repeat(15, 50px);
+    gap: 3px;
+}
+.agrid div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: skyblue;
+    border-radius: 5px;
+    box-shadow: 2px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.agrid div span:first-child {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 12px;
+    line-height: 1; /* same height as font */
+    margin-top: -0px;
+}
+
+.agrid div span:last-child {
+    font-size: 24px;
+}
+

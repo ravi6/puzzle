@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<!--  Puzzle Digitization: 
+   Ravi Saripalli
+   6th April 2026
+ -->
+<head>
+    <meta charset="UTF-8">
+    <link rel ="stylesheet" href="puz.css">
+    <title>Ravi's Puzzle</title>
+</head>
+
+<body>
+  <div class="agrid" id="board"></div>
+    <script src = util.js type=module> </script>
+    <script src = clues.js type=module> </script>
+    <script src = layout.js type=module> </script>
+    <script src = puz.js type=module> </script>
+
+<script type=module>
+  import {initPuz} from "./puz.js" ;
+  initPuz () ;
+</script>
+
+
+</body>
+</html>
