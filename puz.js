@@ -12,9 +12,6 @@ export   const rows = 15;
 export   const grid = document.getElementById("board");
 export   let cells = [] ;
 export   let Clues = {} ;
-export   let gapColor = "rgba(0, 0, 0, 0.2)";
-export   let wColor = "white";
-export   let bufColor = "rgba(0, 0, 0, 0.1)";
 
 function initPuz() {
   for (let r = 0; r < rows; r++) {
@@ -35,7 +32,7 @@ function initPuz() {
     }
     
     Clues = getClues () ;
-    layout () ;;
+    layout () ;
     
 } // initPuz
 

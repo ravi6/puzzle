@@ -5,7 +5,6 @@
 
 import {placeWord} from "./place.js" ;
 import {rows, cols, cells, Clues} from "./puz.js" ;
-import {gapColor, wColor, bufColor} from "./puz.js" ;
 
 export function layout() {
     const keys = Object.keys(Clues); 
@@ -49,14 +48,15 @@ export function layout() {
 		console.log("Matched Clue", keys[cluePointer]);
 		cell.children[0].innerHTML = keys[cluePointer];
 		cluePointer++;
-		if (cluePointer == keys.length) return;
-	    } else if (cell.style.backgroundColor !== wColor) {
+		if (cluePointer == keys.length) break;
+	    } else if (!cell.isChar) {
 		// If it didn't match the current clue
 		// and isn't a letter, it's a block
 		blockCell (r, c);
 	    }
 	}
     } // end scanning all rows
+  colorCells () ;
 } // end Laying out the Puzzle
 
 function hasRunway(r, c, dir, len) {
@@ -73,22 +73,32 @@ function hasRunway(r, c, dir, len) {
 	if (rr >= rows || cc >= cols) return false;
 
 	let target = cells[rr][cc];
-	// For the rest of the word, it's okay if it's white (intersection)
-	// but it MUST NOT be a black square
-	if (target.style.backgroundColor === gapColor) return false;
+	// Return if it is blocked by end of word
+	if (!target.rowAvail && !target.colAvail) return false;
 
-	// If it's not white, it must have the directional flag
+
+	// If the cell is not yet occupied and not availablex 
+        // in the current direction return false
 	let avail = (dir === 'cross') ? target.rowAvail : target.colAvail;
-	if (target.style.backgroundColor !== 'white' && !avail) return false;
+	if (!target.isChar && !avail) return false;
     }
     return true;
-}
+} // end hasRunway
 
 function blockCell (r, c) {
   if (r < 0 || r >= rows || c < 0 || c >= cols) return;
   let cell = cells[r][c];
-  cell.style.backgroundColor = gapColor ;
   cell.rowAvail = false;
   cell.colAvail = false;
-}
+} // end blockCell
+
+function colorCells () {
+    for (let r = 0; r < rows; r++) {
+      for (let c = 0; c < cols; c++) {
+        let cell = cells[r][c];
+        if (cell.hasChar) cell.style.backgroundColor = "white" ;
+        else cell.style.backgroundColor = 'rgba(0, 0, 0, 0.1)' ;
+      }}
+} // end colorCells
+
 // A very clever ascending order   .sort((a, b) => parseInt(a) - parseInt(b));
