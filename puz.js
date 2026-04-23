@@ -13,6 +13,8 @@ export   const grid = document.getElementById("board");
 export   let cells = [] ;
 export   let Clues = {} ;
 
+let cClue = true ;
+
 function initPuz() {
   for (let r = 0; r < rows; r++) {
     cells[r] = []; // Initialize row
@@ -33,6 +35,32 @@ function initPuz() {
     
     Clues = getClues () ;
     layout () ;
+    listen () ;
     
 } // initPuz
 
+function listen () {
+  console.log(Clues) ;
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+       let cell = cells [r][c] ;
+       let corner = cell.children[0];
+       let cText = corner.innerText ;
+       if (cText != "") { // at start of a word
+         let cnum = Number (cText) ;
+         let txt  = Clues [cnum].txt ;
+         corner.addEventListener ("click", (e) => showClue (cnum, txt));
+       }
+  }}
+}
+function showClue (cnum, txt) {
+  let stxt ="" ;
+  if (txt.d === "") stxt = cnum + " Cross: " + txt.c ;
+  else if (txt.c === "") stxt = cnum + " Down: " + txt.d ;
+  else {
+    if (cClue) stxt = cnum + " Cross: " +  txt.c;
+    else stxt = cnum + " Down: " + txt.d ;
+    cClue = !cClue ;
+  }
+  document.getElementById("clue").innerHTML = stxt ;
+}

@@ -46,6 +46,7 @@ export function layout() {
 	    if (matched) {
 		console.log("Matched Cell", cell);
 		console.log("Matched Clue", keys[cluePointer]);
+                // add clue number in the left corner
 		cell.children[0].innerHTML = keys[cluePointer];
 		cluePointer++;
 		if (cluePointer == keys.length) break;
