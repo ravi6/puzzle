@@ -22,7 +22,7 @@ export function layout() {
 		    hasRunway(r, c, "cross", clue.nc.c) &&
 		    hasRunway(r, c, "down", clue.nc.d)
 		) {
-		    console.log("Cross and Down ", r, c, clue.nc.c);
+		    //console.log("Cross and Down ", r, c, clue.nc.c);
 		    placeWord(r, c, "cross", clue.nc.c);
 		    placeWord(r, c, "down", clue.nc.d);
 		    matched = true;
@@ -30,22 +30,22 @@ export function layout() {
 	    } else if (clue.nc.c > 0) {
 		// only cross clue
 		if (hasRunway(r, c, "cross", clue.nc.c)) {
-		    console.log("Cross ", r, c, clue.nc.c);
+		    //console.log("Cross ", r, c, clue.nc.c);
 		    placeWord(r, c, "cross", clue.nc.c);
 		    matched = true;
 		}
 	    } else if (clue.nc.d > 0) {
 		// only down clue
 		if (hasRunway(r, c, "down", clue.nc.d)) {
-		    console.log("Down ", r, c, clue.nc.d);
+		    //console.log("Down ", r, c, clue.nc.d);
 		    placeWord(r, c, "down", clue.nc.d);
 		    matched = true;
 		}
 	    }
 
 	    if (matched) {
-		console.log("Matched Cell", cell);
-		console.log("Matched Clue", keys[cluePointer]);
+		//console.log("Matched Cell", cell);
+		//console.log("Matched Clue", keys[cluePointer]);
                 // add clue number in the left corner
 		cell.children[0].innerHTML = keys[cluePointer];
 		cluePointer++;

@@ -2,6 +2,9 @@
    Ravi Saripalli
    6th April 2026
 */
+
+import {grid, cols, rows} from "./puz.js" ;
+
 export function sumit(v) {
     return v.reduce((s, i) => s + i, 0);
 }

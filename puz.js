@@ -2,9 +2,9 @@
    Ravi Saripalli
    6th April 2026
 */
-
 import {getClues} from "./clues.js" ;
 import {layout}   from "./layout.js" ;
+import {getPos, getCell}  from "./util.js" ;
 export {initPuz} ;
 
 export   const cols = 15;
@@ -13,7 +13,10 @@ export   const grid = document.getElementById("board");
 export   let cells = [] ;
 export   let Clues = {} ;
 
+// State Variables
+let endWord = false ; 
 let cClue = true ;
+let actCell = null ;
 
 function initPuz() {
   for (let r = 0; r < rows; r++) {
@@ -35,32 +38,82 @@ function initPuz() {
     
     Clues = getClues () ;
     layout () ;
-    listen () ;
+    AddMouseListener () ;
+    AddKeyListener () ;
     
 } // initPuz
 
-function listen () {
-  console.log(Clues) ;
+function AddKeyListener () {
+  document.addEventListener ("keydown", (e) => {
+    // grab key that is alphabet and enter in the cell
+    // if allowed 
+    if (endWord)  return ; // no typing allowed 
+    if (/^[a-zA-Z]$/.test(e.key)) {
+       let sp = actCell.children [actCell.children.length - 1] ;
+       sp.innerText = (e.key).toUpperCase() ;
+       if (!nextCell ()) endWord = true ;  // word ended
+    }
+  });
+}
+
+function nextCell () { 
+  // Move to next cell if possible 
+  // if not return false
+  let pos = getPos (actCell) ;
+  if (pos.r == rows - 1 || pos.c == cols - 1) return (false);
+
+  // make next cell active
+  let nxtCell ;
+  if (cClue) nxtCell = getCell (pos.r, pos.c + 1) ;
+  else       nxtCell = getCell (pos.r + 1, pos.c) ;
+  if (nxtCell.style.backgroundColor !== "white") return (false) ;
+  highLight (nxtCell) ;
+  return (true) ;
+} // end nextCell
+
+function AddMouseListener () {
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
        let cell = cells [r][c] ;
-       let corner = cell.children[0];
-       let cText = corner.innerText ;
-       if (cText != "") { // at start of a word
-         let cnum = Number (cText) ;
-         let txt  = Clues [cnum].txt ;
-         corner.addEventListener ("click", (e) => showClue (cnum, txt));
-       }
-  }}
-}
-function showClue (cnum, txt) {
+         if (cell.style.backgroundColor === "white") { 
+	   cell.addEventListener ("click", (e) => {
+	      showClue (cell) ;
+	      highLight (cell) ;
+              endWord = false ; // allow typing
+           });
+         }
+   }}
+} // end listen
+
+function highLight (cell) {
+  if (actCell === null) actCell = cell ;
+  actCell.style.backgroundColor = "white" ;
+  cell.style.backgroundColor = "lightBlue";
+  actCell = cell ;
+} // end highlight
+
+function showClue (cell) {
+  // Show clue if clicked on start of word
+  let corner = cell.children[0];
+  let cnrTxt = corner.innerText ;
+  if (cnrTxt == "")  { return ; }
+  let cnum = Number (cnrTxt) ;
+  let clue  = Clues [cnum] ;
+
   let stxt ="" ;
-  if (txt.d === "") stxt = cnum + " Cross: " + txt.c ;
-  else if (txt.c === "") stxt = cnum + " Down: " + txt.d ;
-  else {
-    if (cClue) stxt = cnum + " Cross: " +  txt.c;
-    else stxt = cnum + " Down: " + txt.d ;
-    cClue = !cClue ;
+  if (clue.txt.d === "") {
+         stxt = cnum + " Cross: " + clue.txt.c ;
+         cClue = true ; 
+  }
+  else if (clue.txt.c === "") {
+         stxt = cnum + " Down: " + clue.txt.d ;
+         cClue = false ; 
+  }
+  else { // toggle Clue string if cross and down
+    if (cClue) stxt = cnum + " Cross: " +  clue.txt.c;
+    else stxt = cnum + " Down: " + clue.txt.d ;
+    cClue = !cClue ; // toggle 
   }
   document.getElementById("clue").innerHTML = stxt ;
-}
+} // show Clue
+
