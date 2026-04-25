@@ -4,7 +4,8 @@
 */
 import {getClues} from "./clues.js" ;
 import {layout}   from "./layout.js" ;
-import {getPos, getCell}  from "./util.js" ;
+import {getPos, getCell}       from "./util.js" ;
+import {saveState, loadState}  from "./util.js" ;
 export {initPuz} ;
 
 export   const cols = 15;
@@ -40,11 +41,21 @@ function initPuz() {
     layout () ;
     AddMouseListener () ;
     AddKeyListener () ;
-    
 } // initPuz
 
 function AddKeyListener () {
   document.addEventListener ("keydown", (e) => {
+
+   if (e.ctrlKey && e.key.toUpperCase() === "S") {
+       e.preventDefault () ;
+       saveState () ;
+   }
+
+   if (e.ctrlKey && e.key.toUpperCase() === "R") {
+       e.preventDefault () ;
+       loadState () ;
+   }
+
     // grab key that is alphabet and enter in the cell
     // if allowed 
     if (endWord)  return ; // no typing allowed 

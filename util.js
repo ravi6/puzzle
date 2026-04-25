@@ -35,3 +35,29 @@ export function getPos(cell) {
     return { r: r, c: c };
 } //end getPos
 
+export function saveState () {
+   let state = {etime: 0, ccs: []} ;
+   state.fills = [] ;
+   for (let r=0 ; r < rows ; r ++) {
+     for (let c=0 ; c < cols ; c++) {
+       let cell = getCell (r, c) ;
+       state.ccs.push (
+         {asc: cell.children[1].innerText,
+           r: r, c: c} ) ;
+    }}
+   
+   // save it for next use
+   localStorage.setItem ("puzState", JSON.stringify (state));
+}
+
+export function loadState () {
+  let  state =  localStorage.getItem ("puzState"); 
+  if (state) {
+     state = JSON.parse (state) ;
+     state.ccs.forEach ( (obj) => {
+         let cell = getCell (obj.r, obj.c) ;
+         cell.children[1].innerText = obj.asc ;
+         console.log (obj.asc) ;
+        }) ;
+  } else {console.log ("load Failed");}    
+} // loadState 
