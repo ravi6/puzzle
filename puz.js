@@ -49,17 +49,22 @@ function AddKeyListener () {
    if (e.ctrlKey && e.key.toUpperCase() === "S") {
        e.preventDefault () ;
        saveState () ;
+       return ;
    }
 
    if (e.ctrlKey && e.key.toUpperCase() === "R") {
        e.preventDefault () ;
        loadState () ;
+       return ;
    }
 
     // grab key that is alphabet and enter in the cell
     // if allowed 
     if (endWord)  return ; // no typing allowed 
-    if (/^[a-zA-Z]$/.test(e.key)) {
+    const isAlpha = /^[a-zA-Z]$/.test(e.key);
+    const isSpace = e.key === " " ;
+    if (isAlpha || isSpace) {
+       e.preventDefault () ;
        let sp = actCell.children [actCell.children.length - 1] ;
        sp.innerText = (e.key).toUpperCase() ;
        if (!nextCell ()) endWord = true ;  // word ended

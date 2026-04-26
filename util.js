@@ -57,7 +57,6 @@ export function loadState () {
      state.ccs.forEach ( (obj) => {
          let cell = getCell (obj.r, obj.c) ;
          cell.children[1].innerText = obj.asc ;
-         console.log (obj.asc) ;
         }) ;
   } else {console.log ("load Failed");}    
 } // loadState 
