@@ -19,7 +19,7 @@ let endWord = false ;
 let cClue = true ;
 let actCell = null ;
 
-function initPuz() {
+async function initPuz() {
   for (let r = 0; r < rows; r++) {
     cells[r] = []; // Initialize row
 	for (let c = 0; c < cols; c++) {
@@ -37,7 +37,7 @@ function initPuz() {
 	}
     }
     
-    Clues = getClues () ;
+    Clues = await getClues () ;
     layout () ;
     AddMouseListener () ;
     AddKeyListener () ;
@@ -117,17 +117,21 @@ function showClue (cell) {
   let clue  = Clues [cnum] ;
 
   let stxt ="" ;
-  if (clue.txt.d === "") {
-         stxt = cnum + " Cross: " + clue.txt.c ;
+  if (clue.txt.d === "") { // Cross Clue Only
+         stxt = cnum + " Cross: " + clue.txt.c 
+               + "(" +  clue.wg.c + ")" ;
          cClue = true ; 
   }
-  else if (clue.txt.c === "") {
-         stxt = cnum + " Down: " + clue.txt.d ;
+  else if (clue.txt.c === "") { // Down Clue Only
+         stxt = cnum + " Down: " + clue.txt.d 
+               + "(" +  clue.wg.d + ")" ;
          cClue = false ; 
   }
   else { // toggle Clue string if cross and down
-    if (cClue) stxt = cnum + " Cross: " +  clue.txt.c;
-    else stxt = cnum + " Down: " + clue.txt.d ;
+    if (cClue) stxt = cnum + " Cross: " +  clue.txt.c
+               + "(" +  clue.wg.c + ")" ;
+    else stxt = cnum + " Down: " + clue.txt.d 
+               + "(" +  clue.wg.d + ")" ;
     cClue = !cClue ; // toggle 
   }
   document.getElementById("clue").innerHTML = stxt ;

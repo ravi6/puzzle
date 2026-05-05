@@ -1,0 +1,33 @@
+const CROSS =
+`1 A greater number used one pen per card (13)
+10 Her long suit was kind of fowl (7)
+11 Mantle is put in sleep position (7)
+12 Pills for congested head kept in good offices (10)
+13 Handed over short auctioneer's hammer (4)
+15 Told a gang to get together (6)
+17 Greatly worried about hothead's lack of energy (8)
+19 Showing off like a gentleman? (8)
+20 Kept from falling when waylaid in the street (4,2)
+23 Mother's hot potato? (4)
+24 So vacation's moving to a maritime province (4,6)
+27 Jaw-dropping vocal or score (7)
+28 Dodge number five, given a place in the back row (7)
+29 Promoter sorts out special forces (5,8)`;
+
+const DOWN =
+`2 Flipped your lid right over the hill (5)
+3 Top citrus confection with & circle of ham (10)
+4 A large number, usually ten integers, rounded up (6)
+5 Goes off when left in exposed position (8)
+6 Proficient at picking up jellybean at intervals (4)
+7 Blamed for underlining lettuce that appeared on the same bill (2,7)
+8 Old girls' school manual (6)
+9 Salad plant sounding a bit like a wine store? (6)
+14 Driver's impediment we call hemp, funnily enough (5,5)
+16 Snowstorm separates peak from lookout (5,4)
+18 I nod interchangeably, fast and slow (8)
+19 One of our relatives is turning one into fellow (6)
+21 Peak rising in southern flats (6) 
+22 Totalled small part around the front end (4,2)
+25 One who tests resistance after breaking into bank (5)
+26 Grim smell when top is removed (4)` ;

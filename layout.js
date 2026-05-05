@@ -12,10 +12,10 @@ export function layout() {
 
     for (let r = 0; r < rows; r++) {
 	for (let c = 0; c < cols; c++) {
+        
 	    let cell = cells[r][c];
 	    let clue = Clues[keys[cluePointer]];
 	    let matched = false;
-
 	    if (clue.nc.c > 0 && clue.nc.d > 0) {
 		//cross & down
 		if (
