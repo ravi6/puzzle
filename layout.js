@@ -6,14 +6,17 @@
 import {placeWord} from "./place.js" ;
 import {rows, cols, cells, Clues} from "./puz.js" ;
 
-export function layout() {
+export function layout(sr=0, sc=1) { // Default to 0,0 for "normal" puzzles
     const keys = Object.keys(Clues); 
     let cluePointer = 0;
 
     for (let r = 0; r < rows; r++) {
 	for (let c = 0; c < cols; c++) {
-        
 	    let cell = cells[r][c];
+         if (r < sr || (r === sr && c < sc)) {
+                blockCell(r, c);
+                continue;
+            }
 	    let clue = Clues[keys[cluePointer]];
 	    let matched = false;
 	    if (clue.nc.c > 0 && clue.nc.d > 0) {
