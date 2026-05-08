@@ -6,14 +6,21 @@
 import {placeWord} from "./place.js" ;
 import {rows, cols, cells, Clues} from "./puz.js" ;
 
-export function layout(sr=0, sc=1) { // Default to 0,0 for "normal" puzzles
+export function layout() { 
     const keys = Object.keys(Clues); 
     let cluePointer = 0;
-
+  
+    // Scan first row to see as to where the first clue starts
+    let colOffset = 0 ;
+      let clue = Clues[keys[0]];
+      if (clue.nc.c > 0 && clue.nc.d == 0) { // has a down
+        colOffset = 1 ;
+      } 
+                      
     for (let r = 0; r < rows; r++) {
 	for (let c = 0; c < cols; c++) {
 	    let cell = cells[r][c];
-         if (r < sr || (r === sr && c < sc)) {
+         if (r == 0 && c < colOffset ) {  // first clue offset
                 blockCell(r, c);
                 continue;
             }
