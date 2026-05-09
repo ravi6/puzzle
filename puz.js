@@ -108,6 +108,26 @@ function highLight (cell) {
   actCell = cell ;
 } // end highlight
 
+function highLightWord (cell, dir, nc) {
+
+ // Remove highLighting
+    let hCells = document.querySelectorAll('.agrid div.highlighted');
+    hCells.forEach(el => {
+        el.classList.remove('highlighted');
+    });
+
+    let pos = getPos (cell) ;
+    if (dir === "cross") {
+        for (let i=0 ; i < nc ; i++)
+          getCell (pos.r, pos.c + i).classList.add('highlighted'); 
+    } 
+    else {
+        for (let i=0 ; i < nc ; i++)
+          getCell (pos.r + i , pos.c).classList.add('highlighted'); 
+    }
+
+} // end highlightWord
+
 function showClue (cell) {
   // Show clue if clicked on start of word
   let corner = cell.children[0];
@@ -121,17 +141,25 @@ function showClue (cell) {
          stxt = cnum + " Cross: " + clue.txt.c 
                + "(" +  clue.wg.c + ")" ;
          cClue = true ; 
+         highLightWord (cell, "cross", clue.nc.c) ;
   }
   else if (clue.txt.c === "") { // Down Clue Only
          stxt = cnum + " Down: " + clue.txt.d 
                + "(" +  clue.wg.d + ")" ;
          cClue = false ; 
+         highLightWord (cell, "down", clue.nc.d) ;
   }
   else { // toggle Clue string if cross and down
-    if (cClue) stxt = cnum + " Cross: " +  clue.txt.c
+    if (cClue) { 
+       stxt = cnum + " Cross: " +  clue.txt.c
                + "(" +  clue.wg.c + ")" ;
-    else stxt = cnum + " Down: " + clue.txt.d 
+        highLightWord (cell, "cross", clue.nc.c) ;
+    }
+    else {
+      stxt = cnum + " Down: " + clue.txt.d 
                + "(" +  clue.wg.d + ")" ;
+      highLightWord (cell, "down", clue.nc.d) ;
+    }
     cClue = !cClue ; // toggle 
   }
   document.getElementById("clue").innerHTML = stxt ;
