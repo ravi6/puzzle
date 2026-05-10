@@ -4,7 +4,7 @@
 */
 
 import {placeWord} from "./place.js" ;
-import {rows, cols, cells, Clues} from "./puz.js" ;
+import {rows, cols, cells, Clues, myBlack} from "./puz.js" ;
 
 export function layout() { 
     const keys = Object.keys(Clues); 
@@ -108,7 +108,7 @@ function colorCells () {
       for (let c = 0; c < cols; c++) {
         let cell = cells[r][c];
         if (cell.hasChar) cell.style.backgroundColor = "white" ;
-        else cell.style.backgroundColor = 'rgba(0, 0, 0, 0.1)' ;
+        else cell.style.backgroundColor = myBlack ;
       }}
 } // end colorCells
 

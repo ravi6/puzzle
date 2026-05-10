@@ -5,6 +5,12 @@
 
 import {grid, cols, rows} from "./puz.js" ;
 
+export function  hexColor (color)  {
+    const ctx = document.createElement('canvas').getContext('2d');
+    ctx.fillStyle = color;
+    return ctx.fillStyle; 
+}
+
 export function sumit(v) {
     return v.reduce((s, i) => s + i, 0);
 }
